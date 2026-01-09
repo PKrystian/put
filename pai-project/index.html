@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Project - PUT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="left-sidebar">
+            <div class="player-stats">
+                <h3>Player Stats</h3>
+                <div class="stat-item">
+                    <label>Level:</label>
+                    <span id="playerLevel">1</span>
+                </div>
+                <div class="stat-item">
+                    <label>Experience:</label>
+                    <div class="exp-bar-container">
+                        <div class="exp-bar-background">
+                            <div class="exp-bar-fill" id="expBarFill"></div>
+                        </div>
+                        <div class="exp-text">
+                            <span id="expCurrent">0</span> / <span id="expRequired">100</span> EXP
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <label>Health:</label>
+                    <div class="health-bar-container">
+                        <div class="health-bar-background">
+                            <div class="health-bar-fill" id="healthBarFill"></div>
+                        </div>
+                        <div class="health-text">
+                            <span id="healthCurrent">100</span> / <span id="healthMax">100</span> HP
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="center-column">
+            <canvas id="gameCanvas"></canvas>
+        </div>
+
+        <div class="right-sidebar">
+            <!-- Future: Additional UI elements can go here -->
+        </div>
+    </div>
+
+    <!-- Level Up Modal -->
+    <div class="level-up-modal" id="levelUpModal" style="display: none;">
+        <div class="modal-content">
+            <h2>LEVEL UP!</h2>
+            <p>Choose your reward:</p>
+            <div class="cards-container">
+                <div class="reward-card" id="card1" onclick="selectReward(0)">
+                    <div class="card-icon" id="cardIcon1">💚</div>
+                    <h3 id="cardTitle1">Heal</h3>
+                    <p id="cardDescription1">Restore 50 HP</p>
+                </div>
+                <div class="reward-card" id="card2" onclick="selectReward(1)">
+                    <div class="card-icon" id="cardIcon2">🔫</div>
+                    <h3 id="cardTitle2">More Bullets</h3>
+                    <p id="cardDescription2">+1 Bullet per attack</p>
+                </div>
+                <div class="reward-card" id="card3" onclick="selectReward(2)">
+                    <div class="card-icon" id="cardIcon3">⚡</div>
+                    <h3 id="cardTitle3">Faster Attack</h3>
+                    <p id="cardDescription3">25% faster attack speed</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div class="game-over-modal" id="gameOverModal" style="display: none;">
+        <div class="game-over-content">
+            <h2 id="gameOverTitle">GAME OVER!</h2>
+            <div class="score-section">
+                <div class="final-score">
+                    <span class="score-label">FINAL SCORE</span>
+                    <span class="score-value" id="finalScore">0</span>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stats-column">
+                    <h3>Combat Stats</h3>
+                    <div class="stat-row">
+                        <span class="stat-name">Enemies Killed:</span>
+                        <span class="stat-value" id="enemiesKilled">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Bullets Fired:</span>
+                        <span class="stat-value" id="bulletsFired">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Damage Taken:</span>
+                        <span class="stat-value" id="damageTaken">0</span>
+                    </div>
+                </div>
+
+                <div class="stats-column">
+                    <h3>Progression Stats</h3>
+                    <div class="stat-row">
+                        <span class="stat-name">Final Level:</span>
+                        <span class="stat-value" id="finalLevel">1</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Total Experience:</span>
+                        <span class="stat-value" id="totalExp">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Rewards Chosen:</span>
+                        <span class="stat-value" id="rewardsChosen">0</span>
+                    </div>
+                </div>
+
+                <div class="stats-column">
+                    <h3>Survival Stats</h3>
+                    <div class="stat-row">
+                        <span class="stat-name">Time Survived:</span>
+                        <span class="stat-value" id="timeSurvived">0:00</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Max Health:</span>
+                        <span class="stat-value" id="maxHealthReached">100</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-name">Bullets Per Shot:</span>
+                        <span class="stat-value" id="maxBullets">1</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-over-buttons">
+                <button class="restart-button" onclick="restartGame()">
+                    🔄 PLAY AGAIN
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include all JS modules in order -->
+    <script src="js/config.js"></script>
+    <script src="js/SpriteAnimator.js"></script>
+    <script src="js/GameObjects.js"></script>
+    <script src="js/Player.js"></script>
+    <script src="js/Enemy.js"></script>
+    <script src="js/UIManager.js"></script>
+    <script src="js/Game.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+
