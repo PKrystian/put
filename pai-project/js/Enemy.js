@@ -1,11 +1,9 @@
-// Enemy class
 class Enemy {
   constructor(x, y, type) {
     this.x = x;
     this.y = y;
     this.type = type;
 
-    // Set properties based on type
     const config = CONFIG.ENEMY[type];
     this.radius = config.RADIUS;
     this.speed = config.SPEED;
@@ -17,18 +15,17 @@ class Enemy {
       this.maxHealth = config.HEALTH;
     }
 
-    // Visual properties
-    this.color = type === 'BASIC' ? 'green' : type === 'RANGED' ? 'purple' : 'orange';
+    this.color =
+      type === "BASIC" ? "green" : type === "RANGED" ? "purple" : "orange";
 
-    // Animation states
     this.isHurt = false;
     this.hurtTimer = 0;
     this.isDead = false;
     this.deathTimer = 0;
 
-    // Setup animator
-    const spriteType = type === 'BASIC' ? 'Slime1' : type === 'RANGED' ? 'Slime2' : 'Slime3';
-    const scale = type === 'TANK' ? 1.33 : 1.07;
+    const spriteType =
+      type === "BASIC" ? "Slime1" : type === "RANGED" ? "Slime2" : "Slime3";
+    const scale = type === "TANK" ? 1.33 : 1.07;
     this.animator = new SpriteAnimator(spriteType, scale);
   }
 
@@ -49,14 +46,14 @@ class Enemy {
     const dy = player.y - this.y;
     const distance = Math.sqrt(dx * dx + dy * dy);
 
-    // Calculate new position
     const newX = this.x + (dx / distance) * this.speed;
     const newY = this.y + (dy / distance) * this.speed;
 
-    // Check collision with other enemies
-    const canMove = !enemies.some(enemy => {
+    const canMove = !enemies.some((enemy) => {
       if (enemy === this || enemy.isDead) return false;
-      const distanceToOther = Math.sqrt((newX - enemy.x) ** 2 + (newY - enemy.y) ** 2);
+      const distanceToOther = Math.sqrt(
+        (newX - enemy.x) ** 2 + (newY - enemy.y) ** 2,
+      );
       return distanceToOther < this.radius + enemy.radius;
     });
 
@@ -81,15 +78,15 @@ class Enemy {
 
   updateAnimation() {
     if (this.isHurt && this.hurtTimer > 0) {
-      this.animator.setAnimation('Hurt');
+      this.animator.setAnimation("Hurt");
     } else if (this.isMoving) {
       if (this.speed > 1.8) {
-        this.animator.setAnimation('Run');
+        this.animator.setAnimation("Run");
       } else {
-        this.animator.setAnimation('Walk');
+        this.animator.setAnimation("Walk");
       }
     } else {
-      this.animator.setAnimation('Idle');
+      this.animator.setAnimation("Idle");
     }
   }
 
@@ -98,9 +95,9 @@ class Enemy {
     if (this.deathTimer <= 0) {
       gameState.stats.enemiesKilled++;
       this.spawnExpOrb(gameState);
-      return true; // Should be removed
+      return true;
     }
-    this.animator.setAnimation('Death');
+    this.animator.setAnimation("Death");
     this.animator.update();
     return false;
   }
@@ -136,7 +133,7 @@ class Enemy {
     const dy = player.y - this.y;
     const distance = Math.sqrt(dx * dx + dy * dy);
 
-    if (distance < (player.radius * 0.8 + this.radius * 0.8)) {
+    if (distance < player.radius * 0.8 + this.radius * 0.8) {
       return player.takeDamage(this.damage, gameState);
     }
     return false;
@@ -145,23 +142,35 @@ class Enemy {
   checkCollisionWithBullet(bullet) {
     if (this.isDead) return false;
 
-    const distance = Math.sqrt((bullet.x - this.x) ** 2 + (bullet.y - this.y) ** 2);
+    const distance = Math.sqrt(
+      (bullet.x - this.x) ** 2 + (bullet.y - this.y) ** 2,
+    );
     return distance < this.radius * 0.9 + 3;
   }
 
   draw(ctx) {
     const spriteSize = this.radius * 4;
-    this.animator.draw(ctx, this.x - spriteSize/2, this.y - spriteSize/2, spriteSize, spriteSize);
+    this.animator.draw(
+      ctx,
+      this.x - spriteSize / 2,
+      this.y - spriteSize / 2,
+      spriteSize,
+      spriteSize,
+    );
 
-    // Draw health bar for enemies with health
     if (this.health && !this.isDead) {
       const healthBarWidth = this.radius * 2;
       const healthBarY = this.y - this.radius - 10;
 
-      ctx.fillStyle = 'red';
-      ctx.fillRect(this.x - healthBarWidth/2, healthBarY, healthBarWidth, 4);
-      ctx.fillStyle = 'green';
-      ctx.fillRect(this.x - healthBarWidth/2, healthBarY, (this.health / this.maxHealth) * healthBarWidth, 4);
+      ctx.fillStyle = "red";
+      ctx.fillRect(this.x - healthBarWidth / 2, healthBarY, healthBarWidth, 4);
+      ctx.fillStyle = "green";
+      ctx.fillRect(
+        this.x - healthBarWidth / 2,
+        healthBarY,
+        (this.health / this.maxHealth) * healthBarWidth,
+        4,
+      );
     }
   }
 
@@ -170,33 +179,32 @@ class Enemy {
     let x, y;
 
     switch (side) {
-      case 0: // Top
+      case 0:
         x = Math.random() * canvas.width;
         y = 0;
         break;
-      case 1: // Right
+      case 1:
         x = canvas.width;
         y = Math.random() * canvas.height;
         break;
-      case 2: // Bottom
+      case 2:
         x = Math.random() * canvas.width;
         y = canvas.height;
         break;
-      case 3: // Left
+      case 3:
         x = 0;
         y = Math.random() * canvas.height;
         break;
     }
 
-    // Determine enemy type
     const rand = Math.random();
     let type;
     if (rand < 0.4) {
-      type = 'BASIC';
+      type = "BASIC";
     } else if (rand < 0.7) {
-      type = 'RANGED';
+      type = "RANGED";
     } else {
-      type = 'TANK';
+      type = "TANK";
     }
 
     return new Enemy(x, y, type);

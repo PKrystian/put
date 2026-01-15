@@ -1,5 +1,5 @@
-// Main game initialization
-document.addEventListener('DOMContentLoaded', () => {
-  const game = new Game();
-  game.start();
+let game;
+
+document.addEventListener("DOMContentLoaded", () => {
+  game = new Game();
 });

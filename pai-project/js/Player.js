@@ -1,11 +1,12 @@
-// Player class
 class Player {
   constructor(x, y) {
     this.x = x;
     this.y = y;
     this.radius = CONFIG.PLAYER.RADIUS;
-    // Fixed speed with reasonable min/max limits instead of scaling with window size
-    this.speed = Math.min(CONFIG.PLAYER.SPEED_MAX, Math.max(CONFIG.PLAYER.SPEED_MIN, 2.5));
+    this.speed = Math.min(
+      CONFIG.PLAYER.SPEED_MAX,
+      Math.max(CONFIG.PLAYER.SPEED_MIN, 2.5),
+    );
     this.health = CONFIG.PLAYER.HEALTH;
     this.maxHealth = CONFIG.PLAYER.HEALTH;
     this.invulnerableTime = 0;
@@ -13,26 +14,23 @@ class Player {
     this.experience = 0;
     this.experienceToNext = CONFIG.EXP_REQUIRED_BASE;
 
-    // Upgrade stats
     this.bulletsPerShot = 1;
     this.attackSpeedMultiplier = 1;
     this.expPickupRadius = CONFIG.ORB_COLLECTION_DISTANCE;
 
-    // Animation states
     this.isHurt = false;
     this.hurtTimer = 0;
     this.lastMoveX = 0;
     this.lastMoveY = 0;
 
-    this.animator = new SpriteAnimator('Vampires3', 1);
+    this.animator = new SpriteAnimator("Vampires3", 1);
   }
 
   update(keys, gameState) {
-    // Track movement for animation
     let isMoving = false;
-    let moveX = 0, moveY = 0;
+    let moveX = 0,
+      moveY = 0;
 
-    // Move player
     if (keys.ArrowLeft || keys.KeyA) {
       this.x -= this.speed;
       moveX = -1;
@@ -54,17 +52,20 @@ class Player {
       isMoving = true;
     }
 
-    // Keep player in bounds
-    const canvas = document.getElementById('gameCanvas');
-    this.x = Math.max(this.radius, Math.min(canvas.width - this.radius, this.x));
-    this.y = Math.max(this.radius, Math.min(canvas.height - this.radius, this.y));
+    const canvas = document.getElementById("gameCanvas");
+    this.x = Math.max(
+      this.radius,
+      Math.min(canvas.width - this.radius, this.x),
+    );
+    this.y = Math.max(
+      this.radius,
+      Math.min(canvas.height - this.radius, this.y),
+    );
 
-    // Update sprite direction
     if (isMoving) {
       this.animator.setDirection(moveX, moveY);
     }
 
-    // Update hurt timer
     if (this.hurtTimer > 0) {
       this.hurtTimer--;
       if (this.hurtTimer === 0) {
@@ -72,29 +73,25 @@ class Player {
       }
     }
 
-    // Determine animation state
     if (this.isHurt && this.hurtTimer > 0) {
-      this.animator.setAnimation('Hurt');
+      this.animator.setAnimation("Hurt");
     } else if (isMoving) {
       const speed = Math.sqrt(moveX * moveX + moveY * moveY) * this.speed;
       if (speed > 3) {
-        this.animator.setAnimation('Run');
+        this.animator.setAnimation("Run");
       } else {
-        this.animator.setAnimation('Walk');
+        this.animator.setAnimation("Walk");
       }
     } else {
-      this.animator.setAnimation('Idle');
+      this.animator.setAnimation("Idle");
     }
 
-    // Update animator
     this.animator.update();
 
-    // Update invulnerability timer
     if (this.invulnerableTime > 0) {
       this.invulnerableTime--;
     }
 
-    // Auto-attack
     const adjustedFireRate = CONFIG.FIRE_RATE / this.attackSpeedMultiplier;
     if (Date.now() - gameState.lastShotTime >= adjustedFireRate) {
       const closestEnemy = this.findClosestEnemy(gameState.enemies);
@@ -153,20 +150,31 @@ class Player {
     while (this.experience >= this.experienceToNext) {
       this.experience -= this.experienceToNext;
       this.level++;
-      this.experienceToNext = Math.floor(CONFIG.EXP_REQUIRED_BASE * Math.pow(1.5, this.level - 1));
-      return true; // Level up occurred
+      this.experienceToNext = Math.floor(
+        CONFIG.EXP_REQUIRED_BASE * Math.pow(1.5, this.level - 1),
+      );
+      return true;
     }
     return false;
   }
 
   draw(ctx) {
-    // Draw player sprite
-    this.animator.draw(ctx, this.x - CONFIG.PLAYER.SPRITE_SIZE/2, this.y - CONFIG.PLAYER.SPRITE_SIZE/2, CONFIG.PLAYER.SPRITE_SIZE, CONFIG.PLAYER.SPRITE_SIZE);
+    this.animator.draw(
+      ctx,
+      this.x - CONFIG.PLAYER.SPRITE_SIZE / 2,
+      this.y - CONFIG.PLAYER.SPRITE_SIZE / 2,
+      CONFIG.PLAYER.SPRITE_SIZE,
+      CONFIG.PLAYER.SPRITE_SIZE,
+    );
 
-    // Draw health bar
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = "red";
     ctx.fillRect(this.x - 25, this.y - 40, 50, 5);
-    ctx.fillStyle = 'green';
-    ctx.fillRect(this.x - 25, this.y - 40, (this.health / this.maxHealth) * 50, 5);
+    ctx.fillStyle = "green";
+    ctx.fillRect(
+      this.x - 25,
+      this.y - 40,
+      (this.health / this.maxHealth) * 50,
+      5,
+    );
   }
 }

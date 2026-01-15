@@ -1,149 +1,209 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Project - PUT</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PUT Survivors</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="game-container">
-        <div class="left-sidebar">
-            <div class="player-stats">
-                <h3>Player Stats</h3>
-                <div class="stat-item">
-                    <label>Level:</label>
-                    <span id="playerLevel">1</span>
-                </div>
-                <div class="stat-item">
-                    <label>Experience:</label>
-                    <div class="exp-bar-container">
-                        <div class="exp-bar-background">
-                            <div class="exp-bar-fill" id="expBarFill"></div>
-                        </div>
-                        <div class="exp-text">
-                            <span id="expCurrent">0</span> / <span id="expRequired">100</span> EXP
-                        </div>
-                    </div>
-                </div>
-                <div class="stat-item">
-                    <label>Health:</label>
-                    <div class="health-bar-container">
-                        <div class="health-bar-background">
-                            <div class="health-bar-fill" id="healthBarFill"></div>
-                        </div>
-                        <div class="health-text">
-                            <span id="healthCurrent">100</span> / <span id="healthMax">100</span> HP
-                        </div>
-                    </div>
-                </div>
+      <div class="left-sidebar">
+        <div class="player-stats">
+          <h3>Player Stats</h3>
+          <div class="stat-item">
+            <label>Level:</label>
+            <span id="playerLevel">x</span>
+          </div>
+          <div class="stat-item">
+            <label>Experience:</label>
+            <div class="exp-bar-container">
+              <div class="exp-bar-background">
+                <div class="exp-bar-fill" id="expBarFill"></div>
+              </div>
+              <div class="exp-text">
+                <span id="expCurrent">x</span> /
+                <span id="expRequired">x</span> EXP
+              </div>
             </div>
+          </div>
+          <div class="stat-item">
+            <label>Health:</label>
+            <div class="health-bar-container">
+              <div class="health-bar-background">
+                <div class="health-bar-fill" id="healthBarFill"></div>
+              </div>
+              <div class="health-text">
+                <span id="healthCurrent">x</span> /
+                <span id="healthMax">x</span> HP
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div class="center-column">
-            <canvas id="gameCanvas"></canvas>
-        </div>
+      <div class="center-column">
+        <canvas id="gameCanvas"></canvas>
+      </div>
 
-        <div class="right-sidebar">
-            <!-- Future: Additional UI elements can go here -->
+      <div class="right-sidebar">
+        <div class="credits-section">
+          <h3>Credits</h3>
+          <div class="credit-item">
+            <strong>Created by:</strong><br>
+            <a href="https://github.com/PKrystian" target="_blank">Krystian Pińczak</a>
+          </div>
+          <div class="credit-item">
+            <strong>Course:</strong><br>
+            PAI Project at <a href="https://www.put.poznan.pl/" target="_blank">Politechnika Poznańska</a>
+          </div>
+          <div class="credit-item">
+            <strong>Inspiration:</strong><br>
+            <a href="https://poncle.itch.io/vampire-survivors" target="_blank">Vampire Survivors</a>
+          </div>
+          <div class="credit-item">
+            <strong>Sprites:</strong><br>
+            <a href="https://craftpix.net" target="_blank">CraftPix.net</a><br>
+            <small>(<a href="https://craftpix.net/file-licenses/" target="_blank">License</a>)</small>
+          </div>
+          <div class="sprite-credits">
+            <div class="sprite-item">
+              <a href="https://craftpix.net/freebies/free-vampire-4-direction-pixel-character-sprite-pack/?num=1&count=23&sq=vampire&pos=5" target="_blank">
+                Free Vampire 4-direction Pixel Character Sprite Pack
+              </a>
+            </div>
+            <div class="sprite-item">
+              <a href="https://craftpix.net/freebies/free-slime-mobs-pixel-art-top-down-sprite-pack/?num=1&count=11&sq=slime&pos=1" target="_blank">
+                Free Slime Mobs Pixel Art Top-Down Sprite Pack
+              </a>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
-    <!-- Level Up Modal -->
-    <div class="level-up-modal" id="levelUpModal" style="display: none;">
-        <div class="modal-content">
-            <h2>LEVEL UP!</h2>
-            <p>Choose your reward:</p>
-            <div class="cards-container">
-                <div class="reward-card" id="card1" onclick="selectReward(0)">
-                    <div class="card-icon" id="cardIcon1">💚</div>
-                    <h3 id="cardTitle1">Heal</h3>
-                    <p id="cardDescription1">Restore 50 HP</p>
-                </div>
-                <div class="reward-card" id="card2" onclick="selectReward(1)">
-                    <div class="card-icon" id="cardIcon2">🔫</div>
-                    <h3 id="cardTitle2">More Bullets</h3>
-                    <p id="cardDescription2">+1 Bullet per attack</p>
-                </div>
-                <div class="reward-card" id="card3" onclick="selectReward(2)">
-                    <div class="card-icon" id="cardIcon3">⚡</div>
-                    <h3 id="cardTitle3">Faster Attack</h3>
-                    <p id="cardDescription3">25% faster attack speed</p>
-                </div>
-            </div>
+    <div class="start-modal" id="startModal">
+      <div class="start-modal-content">
+        <h1>PUT Survivors</h1>
+        <div class="game-description">
+          <p>Survive waves of enemies and level up to become stronger.</p>
+          <p>Collect experience orbs to gain new abilities and powers.</p>
         </div>
+
+        <div class="pc-notice">
+          <p><strong>Note:</strong> This game was created for PC only. Mobile devices are not supported due to lack of touch controls and minimum screen width requirements.</p>
+        </div>
+
+        <div class="controls-section">
+          <h3>Controls</h3>
+          <div class="controls-grid">
+            <div class="control-item">
+              <span class="control-key">WASD / Arrow Keys</span>
+              <span class="control-action">Move</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="start-buttons">
+          <button class="start-button" onclick="startGame()">
+            START GAME
+          </button>
+        </div>
+      </div>
     </div>
 
-    <!-- Game Over Modal -->
-    <div class="game-over-modal" id="gameOverModal" style="display: none;">
-        <div class="game-over-content">
-            <h2 id="gameOverTitle">GAME OVER!</h2>
-            <div class="score-section">
-                <div class="final-score">
-                    <span class="score-label">FINAL SCORE</span>
-                    <span class="score-value" id="finalScore">0</span>
-                </div>
-            </div>
-
-            <div class="stats-grid">
-                <div class="stats-column">
-                    <h3>Combat Stats</h3>
-                    <div class="stat-row">
-                        <span class="stat-name">Enemies Killed:</span>
-                        <span class="stat-value" id="enemiesKilled">0</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-name">Bullets Fired:</span>
-                        <span class="stat-value" id="bulletsFired">0</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-name">Damage Taken:</span>
-                        <span class="stat-value" id="damageTaken">0</span>
-                    </div>
-                </div>
-
-                <div class="stats-column">
-                    <h3>Progression Stats</h3>
-                    <div class="stat-row">
-                        <span class="stat-name">Final Level:</span>
-                        <span class="stat-value" id="finalLevel">1</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-name">Total Experience:</span>
-                        <span class="stat-value" id="totalExp">0</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-name">Rewards Chosen:</span>
-                        <span class="stat-value" id="rewardsChosen">0</span>
-                    </div>
-                </div>
-
-                <div class="stats-column">
-                    <h3>Survival Stats</h3>
-                    <div class="stat-row">
-                        <span class="stat-name">Time Survived:</span>
-                        <span class="stat-value" id="timeSurvived">0:00</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-name">Max Health:</span>
-                        <span class="stat-value" id="maxHealthReached">100</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-name">Bullets Per Shot:</span>
-                        <span class="stat-value" id="maxBullets">1</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="game-over-buttons">
-                <button class="restart-button" onclick="restartGame()">
-                    🔄 PLAY AGAIN
-                </button>
-            </div>
+    <div class="level-up-modal" id="levelUpModal" style="display: none">
+      <div class="modal-content">
+        <h2>LEVEL UP</h2>
+        <p>Choose your reward:</p>
+        <div class="cards-container">
+          <div class="reward-card" id="card1" onclick="selectReward(0)">
+            <div class="card-icon" id="cardIcon1">x</div>
+            <h3 id="cardTitle1">x</h3>
+            <p id="cardDescription1">x</p>
+          </div>
+          <div class="reward-card" id="card2" onclick="selectReward(1)">
+            <div class="card-icon" id="cardIcon2">x</div>
+            <h3 id="cardTitle2">x</h3>
+            <p id="cardDescription2">x</p>
+          </div>
+          <div class="reward-card" id="card3" onclick="selectReward(2)">
+            <div class="card-icon" id="cardIcon3">x</div>
+            <h3 id="cardTitle3">x</h3>
+            <p id="cardDescription3">x</p>
+          </div>
         </div>
+      </div>
     </div>
 
-    <!-- Include all JS modules in order -->
+    <div class="game-over-modal" id="gameOverModal" style="display: none">
+      <div class="game-over-content">
+        <h2 id="gameOverTitle">GAME OVER</h2>
+        <div class="score-section">
+          <div class="final-score">
+            <span class="score-label">FINAL SCORE</span>
+            <span class="score-value" id="finalScore">x</span>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stats-column">
+            <h3>Combat Stats</h3>
+            <div class="stat-row">
+              <span class="stat-name">Enemies Killed:</span>
+              <span class="stat-value" id="enemiesKilled">x</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-name">Bullets Fired:</span>
+              <span class="stat-value" id="bulletsFired">x</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-name">Damage Taken:</span>
+              <span class="stat-value" id="damageTaken">x</span>
+            </div>
+          </div>
+
+          <div class="stats-column">
+            <h3>Progression Stats</h3>
+            <div class="stat-row">
+              <span class="stat-name">Final Level:</span>
+              <span class="stat-value" id="finalLevel">x</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-name">Total Experience:</span>
+              <span class="stat-value" id="totalExp">x</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-name">Rewards Chosen:</span>
+              <span class="stat-value" id="rewardsChosen">x</span>
+            </div>
+          </div>
+
+          <div class="stats-column">
+            <h3>Survival Stats</h3>
+            <div class="stat-row">
+              <span class="stat-name">Time Survived:</span>
+              <span class="stat-value" id="timeSurvived">x</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-name">Max Health:</span>
+              <span class="stat-value" id="maxHealthReached">x</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-name">Bullets Per Shot:</span>
+              <span class="stat-value" id="maxBullets">x</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-over-buttons">
+          <button class="restart-button" onclick="restartGame()">
+            PLAY AGAIN
+          </button>
+        </div>
+      </div>
+    </div>
+
     <script src="js/config.js"></script>
     <script src="js/SpriteAnimator.js"></script>
     <script src="js/GameObjects.js"></script>
@@ -152,6 +212,5 @@
     <script src="js/UIManager.js"></script>
     <script src="js/Game.js"></script>
     <script src="js/main.js"></script>
-</body>
+  </body>
 </html>
-
