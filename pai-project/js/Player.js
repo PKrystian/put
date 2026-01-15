@@ -128,6 +128,10 @@ class Player {
       gameState.bullets.push(bullet);
       gameState.stats.bulletsFired++;
     }
+
+    if (window.game && window.game.soundManager) {
+      window.game.soundManager.playShoot();
+    }
   }
 
   takeDamage(damage, gameState) {
@@ -139,6 +143,10 @@ class Player {
     this.hurtTimer = 15;
 
     gameState.stats.damageTaken += damage;
+
+    if (window.game && window.game.soundManager) {
+      window.game.soundManager.playHurt();
+    }
 
     return this.health <= 0;
   }

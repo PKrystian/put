@@ -40,6 +40,18 @@
             </div>
           </div>
         </div>
+
+        <div class="sound-controls">
+          <h3>Audio Controls</h3>
+          <div class="sound-buttons">
+            <button class="sound-button" id="musicMuteButton" onclick="toggleMusic()">
+              Music: ON
+            </button>
+            <button class="sound-button" id="soundMuteButton" onclick="toggleSounds()">
+              SFX: ON
+            </button>
+          </div>
+        </div>
       </div>
 
       <div class="center-column">
@@ -76,6 +88,15 @@
               <a href="https://craftpix.net/freebies/free-slime-mobs-pixel-art-top-down-sprite-pack/?num=1&count=11&sq=slime&pos=1" target="_blank">
                 Free Slime Mobs Pixel Art Top-Down Sprite Pack
               </a>
+            </div>
+            <div class="credit-item">
+              <strong>Music:</strong><br>
+              Fighter by Grand_Project<br>
+              <a href="https://pixabay.com/music/upbeat-fighter-269805/" target="_blank">Pixabay</a>
+            </div>
+            <div class="credit-item">
+              <strong>Sound Effects:</strong><br>
+              Created via <a href="https://www.bfxr.net/" target="_blank">BFXR.net</a>
             </div>
           </div>
         </div>
@@ -205,6 +226,7 @@
     </div>
 
     <script src="js/config.js"></script>
+    <script src="js/SoundManager.js"></script>
     <script src="js/SpriteAnimator.js"></script>
     <script src="js/GameObjects.js"></script>
     <script src="js/Player.js"></script>

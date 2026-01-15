@@ -3,6 +3,7 @@ class Game {
     this.canvas = document.getElementById("gameCanvas");
     this.ctx = this.canvas.getContext("2d");
     this.ui = new UIManager();
+    this.soundManager = new SoundManager();
     this.keys = {};
     this.gameStarted = false;
 
@@ -16,6 +17,8 @@ class Game {
       this.ui.selectReward(index, this.gameState.player, this.gameState);
     window.restartGame = () => this.restart();
     window.startGame = () => this.handleStartGame();
+    window.toggleMusic = () => this.toggleMusic();
+    window.toggleSounds = () => this.toggleSounds();
   }
 
   createInitialGameState() {
@@ -79,6 +82,7 @@ class Game {
   handleStartGame() {
     this.hideStartModal();
     this.gameStarted = true;
+    this.soundManager.startBackgroundMusic();
     this.start();
   }
 
@@ -90,6 +94,7 @@ class Game {
 
   restart() {
     this.ui.hideGameOverModal();
+    this.soundManager.stopBackgroundMusic();
     this.gameState = this.createInitialGameState();
     this.gameStarted = false;
     this.showStartModal();
@@ -176,9 +181,11 @@ class Game {
       const orb = this.gameState.expOrbs[i];
 
       if (orb.update(this.gameState.player)) {
+        this.soundManager.playPickup();
         if (
           this.gameState.player.gainExperience(orb.expValue, this.gameState)
         ) {
+          this.soundManager.playLevelUp();
           this.ui.triggerLevelUp();
         }
         this.gameState.expOrbs.splice(i, 1);
@@ -211,8 +218,26 @@ class Game {
     this.gameState.expOrbs.forEach((orb) => orb.draw(this.ctx));
   }
 
+  toggleMusic() {
+    const isEnabled = this.soundManager.toggleMusic();
+    const musicButton = document.getElementById("musicMuteButton");
+    if (musicButton) {
+      musicButton.textContent = isEnabled ? "Music: ON" : "Music: OFF";
+    }
+  }
+
+  toggleSounds() {
+    const isEnabled = this.soundManager.toggleSound();
+    const soundButton = document.getElementById("soundMuteButton");
+    if (soundButton) {
+      soundButton.textContent = isEnabled ? "SFX: ON" : "SFX: OFF";
+    }
+  }
+
   endGame(message) {
     this.gameState.gameOver = true;
+    this.soundManager.stopBackgroundMusic();
+    this.soundManager.playPlayerDeath();
     setTimeout(() => {
       this.ui.showGameOverModal(message, this.gameState, this.gameState.player);
     }, 100);

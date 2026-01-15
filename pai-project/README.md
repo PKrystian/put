@@ -20,6 +20,15 @@ All sprites are provided by [CraftPix.net](https://craftpix.net) under their [li
 2. **[Free Slime Mobs Pixel Art Top-Down Sprite Pack](https://craftpix.net/freebies/free-slime-mobs-pixel-art-top-down-sprite-pack/?num=1&count=11&sq=slime&pos=1)**
    - Used for enemy slime animations
 
+## Music
+
+**Fighter** by Grand_Project  
+Source: [Pixabay](https://pixabay.com/music/upbeat-fighter-269805/)
+
+## Sound Effects
+
+Created via [BFXR.net](https://www.bfxr.net/)
+
 ## Installation & Running
 
 1. Clone or download this repository

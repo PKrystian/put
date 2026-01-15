@@ -119,6 +119,10 @@ class Enemy {
   die() {
     this.isDead = true;
     this.deathTimer = 60;
+
+    if (window.game && window.game.soundManager) {
+      window.game.soundManager.playEnemyDeath();
+    }
   }
 
   spawnExpOrb(gameState) {

@@ -178,6 +178,41 @@ canvas {
   margin-top: 5px;
 }
 
+.sound-controls {
+  margin-top: var(--spacing-large);
+  padding-top: var(--spacing-medium);
+  border-top: 2px solid var(--border-primary);
+}
+
+.sound-controls h3 {
+  color: var(--text-primary);
+  font-size: var(--font-md);
+  margin-bottom: var(--spacing-medium);
+  text-align: center;
+}
+
+.sound-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-small);
+}
+
+.sound-button {
+  background: var(--bg-card);
+  border: 2px solid var(--border-secondary);
+  border-radius: var(--radius-medium);
+  padding: var(--spacing-small) var(--spacing-medium);
+  font-size: var(--font-sm);
+  font-weight: bold;
+  color: var(--text-primary);
+  cursor: pointer;
+  text-align: center;
+}
+
+.sound-button:hover {
+  border-color: var(--accent-yellow);
+}
+
 .start-modal {
   position: fixed;
   top: 0;
