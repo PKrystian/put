@@ -19,3 +19,18 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# React app
+/build
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+/coverage
+.pnp
+.pnp.js
+
+# Temporary
+put-notes-blog/
+.gitignore-app
+

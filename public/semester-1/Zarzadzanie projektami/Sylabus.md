@@ -1,0 +1,1 @@
+Prowadzacy nie podal/wyslal Sylabusu
