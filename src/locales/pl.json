@@ -1,0 +1,56 @@
+{
+  "nav": {
+    "backToHome": "Powrót do strony głównej",
+    "backToSemesters": "Powrót do listy semestrów",
+    "backToSemester": "Powrót do semestru",
+    "backToCourse": "Powrót do przedmiotu",
+    "allSemesters": "Wszystkie semestry"
+  },
+  "home": {
+    "title": "PUT Notes",
+    "subtitle": "Notatki z Politechniki Poznańskiej",
+    "welcome": "Witaj w repozytorium notatek studenckich z Politechniki Poznańskiej!",
+    "description": "Ta strona zawiera zebrane notatki z wykładów, laboratoriów i ćwiczeń, które mogą być pomocne dla obecnych i przyszłych studentów.",
+    "chooseSemester": "Wybierz semestr",
+    "chooseSemesterDesc": "Wybierz semestr, aby zobaczyć dostępne przedmioty i notatki.",
+    "quickAccess": "SZYBKI DOSTĘP",
+    "aboutProject": "O projekcie",
+    "aboutDesc1": "To repozytorium zawiera notatki z zajęć na Politechnice Poznańskiej, spisane w formacie Markdown.",
+    "aboutDesc2": "Wszystkie notatki są dostępne dla studentów i mają na celu ułatwienie nauki oraz przygotowania do egzaminów.",
+    "aboutDesc3": "Notatki są regularnie aktualizowane i rozszerzane.",
+    "semesters": "Semestry",
+    "clickToView": "Kliknij, aby zobaczyć przedmioty i projekty"
+  },
+  "semester": {
+    "title": "Przedmioty i projekty",
+    "chooseCourse": "Wybierz przedmiot lub projekt",
+    "courses": "Przedmioty",
+    "projects": "Projekty",
+    "notesFrom": "Notatki z wykładów, laboratoriów i ćwiczeń",
+    "projectDesc": "Projekt realizowany w ramach zajęć",
+    "courseCount": "PRZEDMIOTY",
+    "projectCount": "PROJEKTY"
+  },
+  "course": {
+    "chooseCategory": "Wybierz kategorię i zajęcia, aby zobaczyć notatki",
+    "sylabus": "Sylabus",
+    "sylabusDesc": "Informacje o przedmiocie, programie i zasadach zaliczenia",
+    "chooseClass": "Wybierz zajęcia"
+  },
+  "note": {
+    "courseNotFound": "Nie znaleziono przedmiotu",
+    "backToCourses": "Wróć do listy przedmiotów",
+    "unsupportedFormat": "Nieobsługiwany format pliku",
+    "previous": "Poprzednie",
+    "next": "Następne",
+    "previousClass": "Poprzednie zajęcia",
+    "nextClass": "Następne zajęcia"
+  },
+  "common": {
+    "semester": "Semestr",
+    "project": "Projekt",
+    "copyright": "Politechnika Poznańska",
+    "studentNotes": "Notatki studenckie"
+  }
+}
+

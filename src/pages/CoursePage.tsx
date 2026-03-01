@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Sidebar from '../components/Sidebar';
 import MainContent from '../components/MainContent';
 import { courses } from '../data/coursesData';
@@ -11,6 +12,7 @@ const FileIcon = FaFileAlt as any;
 
 const CoursePage: React.FC = () => {
   const { semesterId, courseId } = useParams<{ semesterId: string; courseId: string }>();
+  const { t } = useTranslation();
   const course = courses.find(c => c.id === courseId);
   const [categories, setCategories] = useState<CategoryInfo[]>([]);
   const [hasSyllabus, setHasSyllabus] = useState(false);
@@ -30,9 +32,9 @@ const CoursePage: React.FC = () => {
     return (
       <div className="min-h-screen bg-[#111111] text-white flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-3xl font-bold mb-4">Nie znaleziono przedmiotu</h1>
+          <h1 className="text-3xl font-bold mb-4">{t('note.courseNotFound')}</h1>
           <Link to={`/semester/${semesterId}`} className="text-blue-400 hover:text-blue-300">
-            Wróć do listy przedmiotów
+            {t('note.backToCourses')}
           </Link>
         </div>
       </div>
@@ -42,14 +44,14 @@ const CoursePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#111111] text-white">
       <div className="hidden lg:flex flex-row">
-        <Sidebar title={course.name} subtitle={`Semestr ${semesterId}`}>
+        <Sidebar title={course.name} subtitle={`${t('common.semester')} ${semesterId}`}>
           <div className="space-y-4 mt-8">
             <Link
               to={`/semester/${semesterId}`}
               className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
             >
               <ArrowLeftIcon />
-              <span>Powrót do semestru</span>
+              <span>{t('nav.backToSemester')}</span>
             </Link>
 
             {hasSyllabus && (
@@ -60,7 +62,7 @@ const CoursePage: React.FC = () => {
                 >
                   <div className="flex items-center gap-2">
                     <FileIcon />
-                    <span className="font-semibold">Sylabus</span>
+                    <span className="font-semibold">{t('course.sylabus')}</span>
                   </div>
                 </Link>
               </div>
@@ -99,13 +101,13 @@ const CoursePage: React.FC = () => {
               className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-6"
             >
               <ArrowLeftIcon />
-              <span>Wróć do semestru {semesterId}</span>
+              <span>{t('nav.backToSemester')} {semesterId}</span>
             </Link>
 
             <div className="mb-8">
               <h1 className="text-3xl font-bold mb-2">{course.name}</h1>
               <p className="text-gray-400">
-                Wybierz kategorię i zajęcia, aby zobaczyć notatki
+                {t('course.chooseCategory')}
               </p>
             </div>
 
@@ -117,10 +119,10 @@ const CoursePage: React.FC = () => {
                 >
                   <div className="flex items-center gap-3 mb-2">
                     <FileIcon className="text-2xl text-blue-400" />
-                    <h3 className="text-xl font-semibold">Sylabus</h3>
+                    <h3 className="text-xl font-semibold">{t('course.sylabus')}</h3>
                   </div>
                   <p className="text-gray-400 text-sm">
-                    Informacje o przedmiocie, programie i zasadach zaliczenia
+                    {t('course.sylabusDesc')}
                   </p>
                 </Link>
               </div>
@@ -160,11 +162,11 @@ const CoursePage: React.FC = () => {
             className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-6"
           >
             <ArrowLeftIcon />
-            <span>Powrót do semestru</span>
+            <span>{t('nav.backToSemester')}</span>
           </Link>
 
           <h1 className="text-2xl font-bold mb-2">{course.name}</h1>
-          <p className="text-gray-400 mb-6">Wybierz zajęcia</p>
+          <p className="text-gray-400 mb-6">{t('course.chooseClass')}</p>
 
           {hasSyllabus && (
             <div className="mb-6">
@@ -174,7 +176,7 @@ const CoursePage: React.FC = () => {
               >
                 <div className="flex items-center gap-2">
                   <FileIcon />
-                  <span className="font-semibold">Sylabus</span>
+                  <span className="font-semibold">{t('course.sylabus')}</span>
                 </div>
               </Link>
             </div>

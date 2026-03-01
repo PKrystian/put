@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Sidebar from '../components/Sidebar';
 import MainContent from '../components/MainContent';
 import Card from '../components/Card';
@@ -12,6 +13,7 @@ const ArrowLeftIcon = FaArrowLeft as any;
 
 const SemesterPage: React.FC = () => {
   const { semesterId } = useParams<{ semesterId: string }>();
+  const { t } = useTranslation();
   const semester = semesters.find(s => s.id === parseInt(semesterId || '1'));
   const semesterCourses = courses.filter(c => c.semester === parseInt(semesterId || '1'));
 
@@ -22,9 +24,9 @@ const SemesterPage: React.FC = () => {
     return (
       <div className="min-h-screen bg-[#111111] text-white flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-3xl font-bold mb-4">Nie znaleziono semestru</h1>
+          <h1 className="text-3xl font-bold mb-4">{t('note.courseNotFound')}</h1>
           <Link to="/" className="text-blue-400 hover:text-blue-300">
-            Wróć do strony głównej
+            {t('nav.backToHome')}
           </Link>
         </div>
       </div>
@@ -36,7 +38,7 @@ const SemesterPage: React.FC = () => {
       <div className="hidden lg:flex flex-row">
         <Sidebar
           title={semester.name}
-          subtitle="Przedmioty i projekty"
+          subtitle={t('semester.title')}
         >
           <div className="space-y-4 mt-8">
             <Link
@@ -44,11 +46,11 @@ const SemesterPage: React.FC = () => {
               className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
             >
               <ArrowLeftIcon />
-              <span>Powrót do listy semestrów</span>
+              <span>{t('nav.backToSemesters')}</span>
             </Link>
 
             <div className="pt-6 border-t border-gray-800">
-              <h3 className="text-sm font-semibold text-gray-400 mb-3">PRZEDMIOTY ({noteCourses.length})</h3>
+              <h3 className="text-sm font-semibold text-gray-400 mb-3">{t('semester.courseCount')} ({noteCourses.length})</h3>
               <div className="space-y-1 text-sm text-gray-300">
                 {noteCourses.map(course => (
                   <Link
@@ -64,7 +66,7 @@ const SemesterPage: React.FC = () => {
 
             {projects.length > 0 && (
               <div className="pt-6 border-t border-gray-800">
-                <h3 className="text-sm font-semibold text-gray-400 mb-3">PROJEKTY ({projects.length})</h3>
+                <h3 className="text-sm font-semibold text-gray-400 mb-3">{t('semester.projectCount')} ({projects.length})</h3>
                 <div className="space-y-1 text-sm text-gray-300">
                   {projects.map(project => (
                     <Link
@@ -89,11 +91,11 @@ const SemesterPage: React.FC = () => {
                 className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-6"
               >
                 <ArrowLeftIcon />
-                <span>Wszystkie semestry</span>
+                <span>{t('nav.allSemesters')}</span>
               </Link>
               <h2 className="text-3xl font-bold mb-2">{semester.name}</h2>
               <p className="text-gray-400">
-                Wybierz przedmiot lub projekt, aby zobaczyć notatki i materiały.
+                {t('semester.chooseCourse')}
               </p>
             </div>
 
@@ -101,14 +103,14 @@ const SemesterPage: React.FC = () => {
               <div>
                 <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2">
                   <BookIcon className="text-blue-400" />
-                  Przedmioty
+                  {t('semester.courses')}
                 </h3>
                 <div className="grid grid-cols-1 gap-4">
                   {noteCourses.map(course => (
                     <Card
                       key={course.id}
                       title={course.name}
-                      description="Notatki z wykładów, laboratoriów i ćwiczeń"
+                      description={t('semester.notesFrom')}
                       link={`/semester/${semesterId}/${course.id}`}
                       icon={<BookIcon />}
                     />
@@ -121,16 +123,16 @@ const SemesterPage: React.FC = () => {
               <div>
                 <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2">
                   <GamepadIcon className="text-green-400" />
-                  Projekty
+                  {t('semester.projects')}
                 </h3>
                 <div className="grid grid-cols-1 gap-4">
                   {projects.map(project => (
                     <Card
                       key={project.id}
                       title={project.name}
-                      description="Projekt realizowany w ramach zajęć"
+                      description={t('semester.projectDesc')}
                       link={`/semester/${semesterId}/${project.id}`}
-                      badge="Projekt"
+                      badge={t('common.project')}
                       icon={<GamepadIcon />}
                     />
                   ))}
@@ -148,17 +150,17 @@ const SemesterPage: React.FC = () => {
             className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-6"
           >
             <ArrowLeftIcon />
-            <span>Wszystkie semestry</span>
+            <span>{t('nav.allSemesters')}</span>
           </Link>
 
           <h1 className="text-3xl font-bold mb-2">{semester.name}</h1>
           <p className="text-gray-400 mb-8">
-            Wybierz przedmiot lub projekt
+            {t('semester.chooseCourse')}
           </p>
 
           {noteCourses.length > 0 && (
             <div className="mb-8">
-              <h2 className="text-xl font-semibold mb-4">Przedmioty</h2>
+              <h2 className="text-xl font-semibold mb-4">{t('semester.courses')}</h2>
               <div className="space-y-3">
                 {noteCourses.map(course => (
                   <Card
@@ -174,14 +176,14 @@ const SemesterPage: React.FC = () => {
 
           {projects.length > 0 && (
             <div>
-              <h2 className="text-xl font-semibold mb-4">Projekty</h2>
+              <h2 className="text-xl font-semibold mb-4">{t('semester.projects')}</h2>
               <div className="space-y-3">
                 {projects.map(project => (
                   <Card
                     key={project.id}
                     title={project.name}
                     link={`/semester/${semesterId}/${project.id}`}
-                    badge="Projekt"
+                    badge={t('common.project')}
                     icon={<GamepadIcon />}
                   />
                 ))}

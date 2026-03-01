@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Sidebar from '../components/Sidebar';
 import MainContent from '../components/MainContent';
 import MarkdownRenderer from '../components/MarkdownRenderer';
@@ -22,6 +23,7 @@ const NoteViewPage: React.FC = () => {
   }>();
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
   const course = courses.find(c => c.id === courseId);
   const courseStructure = getDynamicCourseStructure(courseId || '');
 
@@ -29,9 +31,9 @@ const NoteViewPage: React.FC = () => {
     return (
       <div className="min-h-screen bg-[#111111] text-white flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-3xl font-bold mb-4">Nie znaleziono przedmiotu</h1>
+          <h1 className="text-3xl font-bold mb-4">{t('note.courseNotFound')}</h1>
           <Link to={`/semester/${semesterId}`} className="text-blue-400 hover:text-blue-300">
-            Wróć do listy przedmiotów
+            {t('note.backToCourses')}
           </Link>
         </div>
       </div>
@@ -47,7 +49,7 @@ const NoteViewPage: React.FC = () => {
   const categoryInfo = courseStructure.categories.find(cat => cat.slug === category);
   const categoryName = categoryInfo?.name || '';
 
-  const displayName = isSylabus ? 'Sylabus' : (fileInfo?.displayName || 'Nie znaleziono');
+  const displayName = isSylabus ? t('course.sylabus') : (fileInfo?.displayName || t('note.courseNotFound'));
 
   const filePath = isSylabus
     ? `semester-${semesterId}/${course.path}/Sylabus.md`
@@ -77,14 +79,14 @@ const NoteViewPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#111111] text-white">
       <div className="hidden lg:flex flex-row">
-        <Sidebar title={course.name} subtitle={`Semestr ${semesterId}`}>
+        <Sidebar title={course.name} subtitle={`${t('common.semester')} ${semesterId}`}>
           <div className="space-y-4 mt-8">
             <Link
               to={`/semester/${semesterId}/${courseId}`}
               className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
             >
               <ArrowLeftIcon />
-              <span>Powrót do przedmiotu</span>
+              <span>{t('nav.backToCourse')}</span>
             </Link>
 
             {courseStructure.hasSyllabus && (
@@ -99,7 +101,7 @@ const NoteViewPage: React.FC = () => {
                 >
                   <div className="flex items-center gap-2">
                     <FileIcon />
-                    <span className="font-semibold">Sylabus</span>
+                    <span className="font-semibold">{t('course.sylabus')}</span>
                   </div>
                 </Link>
               </div>
@@ -142,7 +144,7 @@ const NoteViewPage: React.FC = () => {
               className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-6"
             >
               <ArrowLeftIcon />
-              <span>Wróć do przedmiotu</span>
+              <span>{t('nav.backToCourse')}</span>
             </Link>
 
             <div className="mb-8">
@@ -150,7 +152,7 @@ const NoteViewPage: React.FC = () => {
                 <div>
                   <h1 className="text-3xl font-bold mb-2">{course.name}</h1>
                   <p className="text-gray-400">
-                    {isSylabus ? 'Sylabus' : `${categoryName} • ${displayName}`}
+                    {isSylabus ? t('course.sylabus') : `${categoryName} • ${displayName}`}
                   </p>
                 </div>
 
@@ -164,7 +166,7 @@ const NoteViewPage: React.FC = () => {
                           ? 'bg-gray-800 hover:bg-gray-700 text-white'
                           : 'bg-gray-900 text-gray-600 cursor-not-allowed'
                       }`}
-                      title="Poprzednie zajęcia"
+                      title={t('note.previousClass')}
                     >
                       <ChevronLeftIcon />
                     </button>
@@ -179,7 +181,7 @@ const NoteViewPage: React.FC = () => {
                           ? 'bg-gray-800 hover:bg-gray-700 text-white'
                           : 'bg-gray-900 text-gray-600 cursor-not-allowed'
                       }`}
-                      title="Następne zajęcia"
+                      title={t('note.nextClass')}
                     >
                       <ChevronRightIcon />
                     </button>
@@ -195,7 +197,7 @@ const NoteViewPage: React.FC = () => {
                 <MarkdownRenderer filePath={`/${filePath}`} />
               ) : (
                 <div className="text-gray-400 text-center py-12">
-                  Nieobsługiwany format pliku
+                  {t('note.unsupportedFormat')}
                 </div>
               )}
             </div>
@@ -210,12 +212,12 @@ const NoteViewPage: React.FC = () => {
             className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-6"
           >
             <ArrowLeftIcon />
-            <span>Powrót do przedmiotu</span>
+            <span>{t('nav.backToCourse')}</span>
           </Link>
 
           <h1 className="text-2xl font-bold mb-2">{course.name}</h1>
           <p className="text-gray-400 mb-6">
-            {isSylabus ? 'Sylabus' : `${categoryName} • ${displayName}`}
+            {isSylabus ? t('course.sylabus') : `${categoryName} • ${displayName}`}
           </p>
 
           {!isSylabus && (
@@ -230,7 +232,7 @@ const NoteViewPage: React.FC = () => {
                 }`}
               >
                 <ChevronLeftIcon />
-                <span>Poprzednie</span>
+                <span>{t('note.previous')}</span>
               </button>
               <span className="text-sm text-gray-400">
                 {navInfo.current} / {navInfo.total}
@@ -244,7 +246,7 @@ const NoteViewPage: React.FC = () => {
                     : 'bg-gray-900 text-gray-600 cursor-not-allowed'
                 }`}
               >
-                <span>Następne</span>
+                <span>{t('note.next')}</span>
                 <ChevronRightIcon />
               </button>
             </div>
@@ -256,7 +258,7 @@ const NoteViewPage: React.FC = () => {
             <MarkdownRenderer filePath={`/${filePath}`} />
           ) : (
             <div className="text-gray-400 text-center py-12">
-              Nieobsługiwany format pliku
+              {t('note.unsupportedFormat')}
             </div>
           )}
         </main>

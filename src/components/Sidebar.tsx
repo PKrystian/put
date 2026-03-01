@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface SidebarProps {
   title: string;
@@ -8,6 +9,8 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ title, subtitle, children }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="lg:fixed lg:w-2/5 h-screen p-8 lg:p-12 lg:pl-[10%] flex flex-col justify-between min-w-[300px] max-w-[800px] border-r border-gray-800">
       <div>
@@ -20,8 +23,8 @@ const Sidebar: React.FC<SidebarProps> = ({ title, subtitle, children }) => {
         {children}
       </div>
       <div className="text-gray-500 text-sm">
-        <p>© {new Date().getFullYear()} Politechnika Poznańska</p>
-        <p className="mt-2">Notatki studenckie</p>
+        <p>© {new Date().getFullYear()} {t('common.copyright')}</p>
+        <p className="mt-2">{t('common.studentNotes')}</p>
       </div>
     </div>
   );

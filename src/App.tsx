@@ -4,10 +4,12 @@ import HomePage from './pages/HomePage';
 import SemesterPage from './pages/SemesterPage';
 import CoursePage from './pages/CoursePage';
 import NoteViewPage from './pages/NoteViewPage';
+import LanguageSwitcher from './components/LanguageSwitcher';
 
 function App() {
   return (
     <Router>
+      <LanguageSwitcher />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/semester/:semesterId" element={<SemesterPage />} />

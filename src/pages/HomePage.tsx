@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Sidebar from '../components/Sidebar';
 import MainContent from '../components/MainContent';
 import { semesters } from '../data/coursesData';
@@ -9,26 +10,27 @@ const GraduationIcon = FaGraduationCap as any;
 const BookIcon = FaBook as any;
 
 const HomePage: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="min-h-screen bg-[#111111] text-white">
       <div className="hidden lg:flex flex-row">
         <Sidebar
-          title="PUT Notes"
-          subtitle="Notatki z Politechniki Poznańskiej"
+          title={t('home.title')}
+          subtitle={t('home.subtitle')}
         >
           <div className="space-y-4 mt-8">
             <div className="text-gray-300">
               <p className="mb-4">
-                Witaj w repozytorium notatek studenckich z Politechniki Poznańskiej!
+                {t('home.welcome')}
               </p>
               <p className="text-sm text-gray-400">
-                Ta strona zawiera zebrane notatki z wykładów, laboratoriów i ćwiczeń,
-                które mogą być pomocne dla obecnych i przyszłych studentów.
+                {t('home.description')}
               </p>
             </div>
 
             <div className="pt-6 border-t border-gray-800">
-              <h3 className="text-sm font-semibold text-gray-400 mb-3">SZYBKI DOSTĘP</h3>
+              <h3 className="text-sm font-semibold text-gray-400 mb-3">{t('home.quickAccess')}</h3>
               <div className="space-y-2">
                 {semesters.map(semester => (
                   <Link
@@ -50,9 +52,9 @@ const HomePage: React.FC = () => {
         <MainContent>
           <div className="space-y-8">
             <div>
-              <h2 className="text-3xl font-bold mb-6">Wybierz semestr</h2>
+              <h2 className="text-3xl font-bold mb-6">{t('home.chooseSemester')}</h2>
               <p className="text-gray-400 mb-8">
-                Wybierz semestr, aby zobaczyć dostępne przedmioty i notatki.
+                {t('home.chooseSemesterDesc')}
               </p>
             </div>
 
@@ -78,7 +80,7 @@ const HomePage: React.FC = () => {
                     {semester.name}
                   </h3>
                   <p className="text-gray-400 text-sm">
-                    Kliknij, aby zobaczyć przedmioty i projekty
+                    {t('home.clickToView')}
                   </p>
                 </Link>
               ))}
@@ -87,19 +89,17 @@ const HomePage: React.FC = () => {
             <div className="mt-12 p-6 bg-blue-900/20 border border-blue-800 rounded-lg">
               <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
                 <BookIcon className="text-blue-400" />
-                O projekcie
+                {t('home.aboutProject')}
               </h3>
               <div className="text-gray-300 space-y-2 text-sm">
                 <p>
-                  To repozytorium zawiera notatki z zajęć na Politechnice Poznańskiej,
-                  spisane w formacie Markdown.
+                  {t('home.aboutDesc1')}
                 </p>
                 <p>
-                  Wszystkie notatki są dostępne dla studentów i mają na celu ułatwienie
-                  nauki oraz przygotowania do egzaminów.
+                  {t('home.aboutDesc2')}
                 </p>
                 <p className="text-gray-400 mt-4">
-                  Notatki są regularnie aktualizowane i rozszerzane.
+                  {t('home.aboutDesc3')}
                 </p>
               </div>
             </div>
@@ -110,21 +110,21 @@ const HomePage: React.FC = () => {
       <div className="lg:hidden">
         <main className="p-6 max-w-screen-sm mx-auto">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-2">PUT Notes</h1>
-            <p className="text-gray-400">Notatki z Politechniki Poznańskiej</p>
+            <h1 className="text-3xl font-bold mb-2">{t('home.title')}</h1>
+            <p className="text-gray-400">{t('home.subtitle')}</p>
           </div>
 
           <div className="mb-8">
             <p className="text-gray-300 mb-4">
-              Witaj w repozytorium notatek studenckich z Politechniki Poznańskiej!
+              {t('home.welcome')}
             </p>
             <p className="text-sm text-gray-400">
-              Ta strona zawiera zebrane notatki z wykładów, laboratoriów i ćwiczeń.
+              {t('home.description')}
             </p>
           </div>
 
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Semestry</h2>
+            <h2 className="text-2xl font-bold">{t('home.semesters')}</h2>
             {semesters.map(semester => (
               <Link
                 key={semester.id}
