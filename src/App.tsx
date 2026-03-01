@@ -12,13 +12,11 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/semester/:semesterId" element={<SemesterPage />} />
 
-        {/* Stara struktura URL - przekierowanie */}
         <Route
           path="/semester/:semesterId/course/:courseId"
           element={<Navigate to={window.location.pathname.replace('/course/', '/')} replace />}
         />
 
-        {/* Nowa struktura URL */}
         <Route path="/semester/:semesterId/:courseId" element={<CoursePage />} />
         <Route path="/semester/:semesterId/:courseId/sylabus" element={<NoteViewPage />} />
         <Route path="/semester/:semesterId/:courseId/:category/:noteId" element={<NoteViewPage />} />

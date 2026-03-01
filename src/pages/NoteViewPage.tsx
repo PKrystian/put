@@ -38,31 +38,24 @@ const NoteViewPage: React.FC = () => {
     );
   }
 
-  // Sprawdź czy to sylabus - sprawdź czy URL kończy się na "/sylabus"
   const isSylabus = location.pathname.endsWith('/sylabus') || category === 'sylabus';
 
-  // Get file info from the dynamic structure
   const fileInfo = !isSylabus && category && noteId
     ? findFileBySlug(courseId || '', category, noteId)
     : null;
 
-  // Get the category info
   const categoryInfo = courseStructure.categories.find(cat => cat.slug === category);
   const categoryName = categoryInfo?.name || '';
 
-  // Display name - either Sylabus or the actual file's display name
   const displayName = isSylabus ? 'Sylabus' : (fileInfo?.displayName || 'Nie znaleziono');
 
-  // Ścieżka do pliku - use actual filename
   const filePath = isSylabus
     ? `semester-${semesterId}/${course.path}/Sylabus.md`
     : `semester-${semesterId}/${course.path}/${categoryName}/${fileInfo?.fileName || ''}`;
 
-  // Detect file type based on extension
   const isPdf = filePath.toLowerCase().endsWith('.pdf');
   const isMarkdown = filePath.toLowerCase().endsWith('.md');
 
-  // Nawigacja między plikami (tylko dla notatek, nie dla sylabusa)
   const navInfo = !isSylabus && category && noteId
     ? getNavigationInfo(courseId || '', category, noteId)
     : { prev: null, next: null, current: 0, total: 0 };
@@ -79,7 +72,6 @@ const NoteViewPage: React.FC = () => {
     }
   };
 
-  // Use the dynamic course structure for sidebar navigation
   const allCategories = courseStructure.categories;
 
   return (
@@ -162,7 +154,6 @@ const NoteViewPage: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Nawigacja prev/next - tylko dla notatek, nie dla sylabusa */}
                 {!isSylabus && (
                   <div className="flex items-center gap-2">
                     <button
@@ -212,7 +203,6 @@ const NoteViewPage: React.FC = () => {
         </MainContent>
       </div>
 
-      {/* Mobile view */}
       <div className="lg:hidden">
         <main className="p-6 max-w-screen-sm mx-auto">
           <Link
@@ -228,7 +218,6 @@ const NoteViewPage: React.FC = () => {
             {isSylabus ? 'Sylabus' : `${categoryName} • ${displayName}`}
           </p>
 
-          {/* Nawigacja prev/next mobile - tylko dla notatek */}
           {!isSylabus && (
             <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-800">
               <button

@@ -21,7 +21,6 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, filePath }
           return response.text();
         })
         .then(text => {
-          // Preprocess markdown to handle problematic content
           const processedText = preprocessMarkdown(text);
           setMarkdown(processedText);
           setLoading(false);
@@ -34,17 +33,11 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, filePath }
     }
   }, [filePath]);
 
-  // Preprocess markdown to handle HTML entities and improve rendering
   const preprocessMarkdown = (text: string): string => {
-    // First, normalize line endings
     let processed = text.replace(/\r\n/g, '\n');
 
-    // Replace <br><br> with proper line breaks within table cells
-    // Keep them as <br> tags for proper rendering in table cells
     processed = processed.replace(/<br><br>/g, '<br>');
 
-    // Ensure table rows are properly separated
-    // Fix any potential issues with table cell alignment
     const lines = processed.split('\n');
     const processedLines: string[] = [];
     let inTable = false;
@@ -52,27 +45,21 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, filePath }
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
 
-      // Detect table start (header row with |)
       if (line.trim().startsWith('|') && line.trim().endsWith('|')) {
         inTable = true;
         processedLines.push(line);
       }
-      // Check if still in table
       else if (inTable) {
-        // Empty line might end table
         if (line.trim() === '') {
           inTable = false;
           processedLines.push(line);
         }
-        // Continue table row
         else if (line.trim().startsWith('|')) {
           processedLines.push(line);
         }
-        // Separator row
         else if (line.includes('---')) {
           processedLines.push(line);
         }
-        // Not a table line anymore
         else {
           inTable = false;
           processedLines.push(line);
@@ -140,7 +127,6 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, filePath }
           td: ({node, ...props}) => (
             <td className="px-4 py-3 text-sm text-gray-300 align-top" style={{whiteSpace: 'normal', wordBreak: 'break-word'}} {...props} />
           ),
-          // eslint-disable-next-line jsx-a11y/anchor-has-content
           a: ({node, ...props}) => (
             <a className="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener noreferrer" {...props} />
           ),

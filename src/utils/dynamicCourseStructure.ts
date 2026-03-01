@@ -1,15 +1,12 @@
-// Dynamic course structure that reads actual files from the public directory
-// This will be populated by scanning the actual file structure
-
 export interface FileInfo {
-  fileName: string;      // Actual file name: "Egzamin pytania i odpowiedzi - laboratorium.md"
-  displayName: string;   // Display name: "Egzamin pytania i odpowiedzi - laboratorium"
-  slug: string;          // URL-friendly slug: "egzamin-pytania-i-odpowiedzi-laboratorium"
+  fileName: string;
+  displayName: string;
+  slug: string;
 }
 
 export interface CategoryInfo {
-  name: string;          // "Laboratorium", "Wyklad", etc.
-  slug: string;          // "laboratorium", "wyklad"
+  name: string;
+  slug: string;
   files: FileInfo[];
 }
 
@@ -18,8 +15,6 @@ export interface CourseStructureInfo {
   categories: CategoryInfo[];
 }
 
-// This data structure will be built dynamically by scanning the public folder
-// For now, we'll hardcode it, but it should be generated from actual files
 export const dynamicCourseStructures: Record<string, CourseStructureInfo> = {
   'bazy-danych': {
     hasSyllabus: true,
@@ -187,12 +182,10 @@ export const dynamicCourseStructures: Record<string, CourseStructureInfo> = {
   }
 };
 
-// Get dynamic course structure
 export const getDynamicCourseStructure = (courseId: string): CourseStructureInfo | null => {
   return dynamicCourseStructures[courseId] || null;
 };
 
-// Find a specific file by category and slug
 export const findFileBySlug = (
   courseId: string,
   categorySlug: string,
@@ -207,7 +200,6 @@ export const findFileBySlug = (
   return category.files.find(file => file.slug === fileSlug) || null;
 };
 
-// Get navigation info (prev/next files in a category)
 export const getNavigationInfo = (
   courseId: string,
   categorySlug: string,

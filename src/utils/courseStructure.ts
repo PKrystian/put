@@ -1,4 +1,3 @@
-// Mapowanie przedmiotów na ich rzeczywiste kategorie
 const courseStructures: Record<string, { categories: string[], hasSyllabus: boolean }> = {
   'jezyk-angielski': {
     categories: ['Cwiczenia'],
@@ -34,12 +33,10 @@ const courseStructures: Record<string, { categories: string[], hasSyllabus: bool
   },
 };
 
-// Funkcja do pobrania struktury konkretnego przedmiotu
 export const getCourseStructure = (courseId: string) => {
   return courseStructures[courseId] || { categories: [], hasSyllabus: false };
 };
 
-// Mapowanie liczby plików w każdej kategorii (możesz to zaktualizować)
 export const getCategoryFiles = (courseId: string, category: string) => {
   const fileCount: Record<string, Record<string, number>> = {
     'jezyk-angielski': { 'Cwiczenia': 5 },

@@ -141,7 +141,6 @@ const SemesterPage: React.FC = () => {
         </MainContent>
       </div>
 
-      {/* Mobile view */}
       <div className="lg:hidden">
         <main className="p-6 max-w-screen-sm mx-auto">
           <Link

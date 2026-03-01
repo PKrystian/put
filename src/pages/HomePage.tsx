@@ -107,7 +107,6 @@ const HomePage: React.FC = () => {
         </MainContent>
       </div>
 
-      {/* Mobile view */}
       <div className="lg:hidden">
         <main className="p-6 max-w-screen-sm mx-auto">
           <div className="mb-8">

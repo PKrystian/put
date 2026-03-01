@@ -6,19 +6,14 @@ export const getNotesStructure = async (
   semester: string,
   coursePath: string
 ): Promise<NotesStructure> => {
-  // This will be populated based on the actual file structure
-  // For now, we'll return a structure based on common patterns
   const fullPath = `${BASE_PATH}/${semester}/notes/${coursePath}`;
 
   const categories: NoteCategory[] = [];
 
-  // Common categories found in the notes
   const possibleCategories = ['Wyklad', 'Laboratorium', 'Cwiczenia'];
 
   for (const category of possibleCategories) {
     const categoryPath = `${fullPath}/${category}`;
-    // In a real implementation, we would scan the directory
-    // For now, we'll create a placeholder structure
     categories.push({
       name: category,
       path: category,

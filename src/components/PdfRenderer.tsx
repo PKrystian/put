@@ -10,7 +10,6 @@ interface PdfRendererProps {
 const PdfRenderer: React.FC<PdfRendererProps> = ({ filePath }) => {
   return (
     <div className="w-full">
-      {/* Link to open in new tab */}
       <div className="mb-4 flex justify-end">
         <a
           href={filePath}
@@ -23,7 +22,6 @@ const PdfRenderer: React.FC<PdfRendererProps> = ({ filePath }) => {
         </a>
       </div>
 
-      {/* PDF Viewer */}
       <div className="w-full bg-gray-900 rounded-lg overflow-hidden border border-gray-800">
         <iframe
           src={filePath}
