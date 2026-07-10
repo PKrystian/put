@@ -1,6 +1,6 @@
 {
   "short_name": "PUT Notes",
-  "name": "PUT Notes - Notatki z Politechniki Poznańskiej",
+  "name": "PUT Notes",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "PUT-logo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "PUT-logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }

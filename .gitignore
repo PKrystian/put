@@ -11,6 +11,7 @@ dist-ssr
 *.local
 .vscode/*
 !.vscode/extensions.json
+.claude/
 .idea
 ../.idea
 .DS_Store
@@ -20,8 +21,8 @@ dist-ssr
 *.sln
 *.sw?
 
-# React app
 /build
+.env
 .env.local
 .env.development.local
 .env.test.local
@@ -30,7 +31,13 @@ dist-ssr
 .pnp
 .pnp.js
 
-# Temporary
+venv/
+.venv/
+env/
+ENV/
+__pycache__/
+*.pyc
+
 put-notes-blog/
 .gitignore-app
 

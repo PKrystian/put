@@ -1,0 +1,35 @@
+name: Zgłoszenie błędu
+description: Coś nie działa poprawnie w aplikacji (nawigacja, wyszukiwanie, wyświetlanie notatek itd.)
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Co się stało?
+      description: Krótki opis problemu.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Jak to odtworzyć?
+      placeholder: |
+        1. Wejdź na ...
+        2. Kliknij ...
+        3. Zobacz błąd
+    validations:
+      required: false
+  - type: input
+    id: url
+    attributes:
+      label: Adres URL (jeśli dotyczy konkretnej notatki/strony)
+      placeholder: https://put.krystianpinczak.com/note/...
+    validations:
+      required: false
+  - type: input
+    id: browser
+    attributes:
+      label: Przeglądarka / urządzenie
+      placeholder: np. Chrome 126 na macOS, Safari na iOS
+    validations:
+      required: false

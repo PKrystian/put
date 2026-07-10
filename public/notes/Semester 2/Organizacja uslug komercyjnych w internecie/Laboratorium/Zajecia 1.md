@@ -1,0 +1,1 @@
+nie bylem srki ;x
