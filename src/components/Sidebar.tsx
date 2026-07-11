@@ -90,7 +90,10 @@ const Folder: React.FC<{
   return (
     <div>
       <button
-        onClick={() => setManualOverride(!expanded)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setManualOverride(!expanded);
+        }}
         className="flex w-full items-center gap-1.5 rounded-md py-1.5 pr-2 text-left text-sm font-medium text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
         style={{ paddingLeft: `${depth * 14 + 6}px` }}
       >

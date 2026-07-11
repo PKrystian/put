@@ -21,7 +21,7 @@ const Layout: React.FC = () => {
         <Sidebar />
       </aside>
 
-      <header className="fixed left-0 right-0 top-0 z-30 flex items-center justify-between border-b border-[#1f1f1f] bg-[#0f0f0f]/95 px-4 py-3 backdrop-blur lg:hidden">
+      <header className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between border-b border-[#1f1f1f] bg-[#0f0f0f]/95 px-4 py-3 backdrop-blur lg:hidden">
         <Link to="/" className="text-lg font-bold text-white">
           PUT Notes
         </Link>
