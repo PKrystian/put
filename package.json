@@ -2,7 +2,7 @@
   "name": "put-notes",
   "version": "1.0.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "/",
   "engines": {
     "node": ">=20"
   },
